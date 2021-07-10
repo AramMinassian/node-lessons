@@ -4,3 +4,6 @@ process.nextTick(() => {
 setImmediate(() => {
   console.log("immediate");
 });
+setTimeout(() => {
+  console.log("timer");
+},0);
