@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node-server:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    volumes:
+      - ".:/app"
+  mysql:
+    image: "mysql"
+    platform: linux/x86_64
+    ports:
+      - "3306:3306"
