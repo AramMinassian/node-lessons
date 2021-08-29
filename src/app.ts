@@ -1,37 +1,21 @@
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-import cron from "node-cron";
+import "reflect-metadata";
+import express, {Express} from "express";
+import cors from "cors";
+import costumerRoute from "./routes/costumer.route";
+import orderRoute from "./routes/order.route";
+import productRoute from "./routes/product.route";
 
-dotenv.config();
 
-const EMAIL = process.env.EMAIL || "aaa@aaa.com";
-const PASSWORD = process.env.PASSWORD || "111111";
+const getApp = ():Express => {
+    const app = express();
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: EMAIL,
-    pass: PASSWORD
-  }
-})
-
-const messageOptions = {
-  from: EMAIL,
-  to: "aramminas@outlook.com",
-  subject: "Node practice",
-  text: "Hello there"
+    app.use(cors());
+    app.use(express.json());
+    app.use("/costumers", costumerRoute);
+    app.use("/orders", orderRoute);
+    app.use("/products", productRoute);
+    
+    return app;
 }
 
-cron.schedule("*/5 * * * *", () => {
-  transporter.sendMail(messageOptions, (err) => {
-    if (err) {
-      console.log(err.message);
-    } else {
-      console.log("Message has successfully been sent");
-    }
-  })
-})
-
-
-
-
+export default getApp;

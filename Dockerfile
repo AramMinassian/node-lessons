@@ -1,12 +1,16 @@
-FROM node:14.17.4
+FROM node:current
 
+WORKDIR /app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+COPY package.*json ./
+COPY ormconfig.json ./
+COPY tsconfig.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./src ./
 
-CMD [ "npm", "run" , "dev"]
+EXPOSE 4000
+
+CMD npm run dev
 
