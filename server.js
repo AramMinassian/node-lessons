@@ -1,6 +1,6 @@
 import app from "./routes.js";
 
-const port = 3000;
+const port = 80;
 app.listen(port, () => {
   console.log(`app is listening on port: ${port}`)
 });
